@@ -1,53 +1,88 @@
 <template>
   <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item" :class="{ disabled: currentPage === 1 }">
-        <a class="page-link" href="#" @click.prevent="changePage(1)">First</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === 1 }">
-        <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
-      </li>
-      <li class="page-item" v-for="page in pages" :key="page" :class="{ active: currentPage === page }">
-        <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === pagesCount }">
-        <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === pagesCount }">
-        <a class="page-link" href="#" @click.prevent="changePage(pagesCount)">Last</a>
-      </li>
-    </ul>
+    <div class="pagination">
+      <button
+        class="button"
+        :class="{ disabled: currentPage === 1 }"
+        href="#"
+        @click.prevent="changePage(1)"
+      >
+        Première
+      </button>
+      <button
+        class="button"
+        :class="{ disabled: currentPage === 1 }"
+        href="#"
+        @click.prevent="changePage(currentPage - 1)"
+      >
+        Précédent
+      </button>
+      <button
+        class="button"
+        href="#"
+        v-for="page in pages"
+        :key="page"
+        :class="{ active: currentPage === page }"
+        @click.prevent="changePage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="button"
+        :class="{ disabled: currentPage === pagesCount }"
+        href="#"
+        @click.prevent="changePage(currentPage + 1)"
+      >
+        Suivant
+      </button>
+      <button
+        class="button"
+        :class="{ disabled: currentPage === pagesCount }"
+        href="#"
+        @click.prevent="changePage(pagesCount)"
+      >
+        Dernière
+      </button>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'PaginationComponent',
-  props: ['totalProducts', 'productsPerPage'],
+  name: "PaginationComponent",
+  props: ["totalProducts", "productsPerPage"],
   data() {
     return {
-      currentPage: 1
-    }
+      currentPage: 1,
+    };
   },
   computed: {
     pagesCount() {
-      return Math.ceil(this.totalProducts / this.productsPerPage)
+      return Math.ceil(this.totalProducts / this.productsPerPage);
     },
     pages() {
-      const pages = []
+      const pages = [];
       for (let i = 1; i <= this.pagesCount; i++) {
-        pages.push(i)
+        pages.push(i);
       }
-      return pages
-    }
+      return pages;
+    },
   },
   methods: {
     changePage(page) {
       if (page >= 1 && page <= this.pagesCount) {
-        this.currentPage = page
-        this.$emit('page-changed', page)
+        this.currentPage = page;
+        this.$emit("page-changed", page);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
+<style scoped>
+.pagination {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+}
+</style>
