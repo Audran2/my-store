@@ -1,32 +1,61 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Mon Store</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link :to="{ name: 'home' }" class="nav-link">Accueil</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link :to="{ name: 'cart' }" class="nav-link">
-              Panier
-              <span class="badge badge-pill badge-secondary">{{ cartProductsCount }}</span>
-            </router-link>
-          </li>
-        </ul>
+  <nav class="navbar">
+    <router-link :to="{ name: 'home' }" class="home"> Mon store </router-link>
+    <router-link :to="{ name: 'cart' }" class="cart">
+      <div>
+        <img class="img" src="../assets/cart-icon.png" alt="cart-icon" />
       </div>
-    </nav>
-  </template>
-  
-  <script>
-  export default {
-    computed: {
-      cartProductsCount() {
-        return this.$store.state.cart.length;
-      },
+      <div class="badge">{{ cartProductsCount }}</div>
+    </router-link>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: "NavBar",
+  computed: {
+    cartProductsCount() {
+      return this.$store.state.cart.length;
     },
-  };
-  </script>
-  
+  },
+};
+</script>
+
+<style scoped>
+.navbar {
+  width: 100vw;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  height: 5rem;
+}
+.home {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.cart {
+  height: auto;
+}
+.img {
+  height: 7vh;
+  width: auto;
+  padding-top: 25px;
+  margin-right: 25px;
+}
+
+.badge {
+  padding: 3px;
+  background-color: red;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 15px;
+  position: relative;
+  top: -55px;
+  right: -35px;
+  width: 1rem;
+}
+</style>
